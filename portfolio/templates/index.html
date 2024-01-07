@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Portfolio</title>
+</head>
+<body>
+
+    <div class="header">
+        <h1>My Portfolio</h1>
+    </div>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <div class="navigation">
+        <!-- Navigation Links -->
+        <a href="#home">Home</a> |
+        <a href="#about">About</a> |
+        <a href="#projects">Projects</a> |
+        <a href="#contact">Contact</a>
+    </div>
+
+    <div class="content">
+        <!-- Home Section -->
+        <section id="home">
+            <h2>Welcome to My Portfolio</h2>
+            <p>Hello, I am a passionate AI enthusiast.</p>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <h2>About Me</h2>
+            <p>I am a second year student at Manipal University Jaipur, I am currently enrolled in a distance learning (online) Bachelor's of Computer Applications program.
+            </p>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects">
+            <h2>Projects</h2>
+            <p>Some of my Personal Projects -</p>
+            <ul id="projectlist">
+                <li><b>Image Captioning :</b> <p> I created a Image captioning model from scratch using PyTorch, implemented a custom text tokenizer without using any external libraries.
+                    Collected Image captioning dataset from various online sources, also did some data annotation myself.
+                </p></li>
+                <li>PDF_reader</li>
+                <li>Face detector</li>
+            </ul>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2>Contact Me</h2>
+            <p>Details on how to contact you - email, phone, social media links, etc.</p>
+        </section>
+    </div>
+
+    <div class="footer">
+        <p>Copyright &copy; 2024 Kunal Shaw</p>
+    </div>
+
+</body>
+</html>

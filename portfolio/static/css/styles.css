@@ -1,0 +1,44 @@
+/* Add your CSS styling here */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: white;
+    background-color: #6b6969;
+}
+.header {
+    background: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+.navigation {
+    background: #444;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+.navigation a {
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+}
+.content {
+    padding: 20px;
+}
+.footer {
+    background: #202020;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+#home, #about, #projects, #contact{
+    text-align: center;
+    list-style-position: inside
+}
+
+#projectlist{
+    display: inline-block;
+    text-align: left;
+}
