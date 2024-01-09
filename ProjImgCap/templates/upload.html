@@ -25,7 +25,8 @@
             <div id="canvas">
                 <canvas id="canv1"></canvas>
             </div>
-            <form method="POST" enctype="multipart/form-data" action="/upload">
+            <form method="POST" enctype="multipart/form-data" action="{% url 'ProjImgCap:GenerateCaption' %}">
+                {% csrf_token %}
                 ImageName:
                 <input type="file" name="image" multiple="false" accept="image/*" id=finput onchange=display()>
                 <input type="submit" value="Generate">
