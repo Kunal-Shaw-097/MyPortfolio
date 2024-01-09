@@ -1,4 +1,4 @@
-from utils.modules import decoder_block, TextPositionalEncoding, ImageEmbedding, Encoder_block, ImagePositionalEncoding
+from .modules import decoder_block, TextPositionalEncoding, ImageEmbedding, Encoder_block, ImagePositionalEncoding
 import torch.nn as nn
 from torch.nn import Embedding
 import torch.nn.functional as F

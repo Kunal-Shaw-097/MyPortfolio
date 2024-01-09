@@ -1,5 +1,5 @@
 import torch
-from utils.model import Model
+from .model import Model
 
 def resume_checkpoint(path, tokenizer, resume_weight_only : bool = True, device : str = 'cuda') :
     ckpt = torch.load(path, map_location=device)
