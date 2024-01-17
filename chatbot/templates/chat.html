@@ -1,11 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Chatbot Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        #chatbox {
+            flex-grow: 1;
+            overflow: auto;
+            padding: 10px;
+            background-color: #f5f5f5;
+        }
+        .message {
+            max-width: 80%;
+            margin: 5px;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .user {
+            align-self: flex-end;
+            background-color: #daf8cb;
+        }
+        .bot {
+            align-self: flex-start;
+            background-color: #f1f0f0;
+        }
+        #inputbox {
+            display: flex;
+        }
+        #inputbox input[type="text"] {
+            flex-grow: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 0;
+            margin: 0;
+            font-size: 16px;
+        }
+        #inputbox button {
+            padding: 10px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
-    
+    <div id="chatbox">
+        <!-- Example messages -->
+        <div class="message user">Hello!</div>
+        <div class="message bot">Hi there! How can I help you?</div>
+    </div>
+    <div id="inputbox">
+        <input type="text" placeholder="Type your message here...">
+        <button>Send</button>
+    </div>
 </body>
 </html>
