@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'portfolio',
     'ProjImgCap',
+    'PDF_QNA',
 ]
 
 MIDDLEWARE = [
@@ -56,7 +57,7 @@ ROOT_URLCONF = 'MyPortfolio.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["portfolio/templates","ProjImgCap/templates"],
+        'DIRS': ["portfolio/templates","ProjImgCap/templates", "PDF_QNA/templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
