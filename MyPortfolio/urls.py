@@ -21,5 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('portfolio.urls')),
     path('ImgCap/', include('ProjImgCap.urls')),
-    path('PdfQA/'), include('PDF_QNA.urls')
+    path('PdfQA/', include('PDF_QNA.urls'))
 ]
