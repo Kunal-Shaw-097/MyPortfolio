@@ -13,5 +13,10 @@
         <input type="file" name="pdf_file" accept="application/pdf">
         <button type="submit">Upload PDF</button>
     </form>
+    <form method="POST" novalidate>
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Submit</button>
+    </form>
 </body>
 </html>
