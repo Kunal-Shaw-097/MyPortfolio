@@ -8,15 +8,17 @@
 </head>
 <body>
     <h1>Upload a PDF File</h1>
-    <form action="{% url 'PDF_QNA:qna' %}" method="POST" enctype="multipart/form-data">
+    <form action="{% url 'PDF_QNA:upload_pdf' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <input type="file" name="pdf_file" accept="application/pdf">
         <button type="submit">Upload PDF</button>
     </form>
-    <form method="POST" novalidate>
+    <form action="{% url 'PDF_QNA:qna' %}" method="POST" novalidate>
         {% csrf_token %}
         {{ form }}
         <button type="submit">Submit</button>
     </form>
+
+    {{ response }}
 </body>
 </html>
