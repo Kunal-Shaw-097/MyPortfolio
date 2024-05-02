@@ -1,6 +1,10 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
+    <form action="{% url 'portfolio:index' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <button type="submit">Back</button>
+    </form>
     <head>
         <link rel="stylesheet" href="{% static 'css/styles1.css' %}">
         <script src="{% static 'javascript/SimpleImage.js' %}"></script>
