@@ -8,17 +8,32 @@
 </head>
 <body>
     <h1>Upload a PDF File</h1>
+    <form action="{% url 'portfolio:index' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <button type="submit">Back</button>
+    </form>
+    {% if noupload_msg %}
+    <div>{{ noupload_msg }}</div>
+    {% endif %}
     <form action="{% url 'PDF_QNA:upload_pdf' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <input type="file" name="pdf_file" accept="application/pdf">
+        {% if uploaded %}
+        <div> {{ file_name }} {{ file_size }}</div>
+        <button type="submit" disabled>Upload PDF</button>
+        {% else %}
         <button type="submit">Upload PDF</button>
+        {% endif %}
+    </form>
+    <form action="{% url 'PDF_QNA:upload_pdf' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <button type="submit">Upload another PDF</button>
     </form>
     <form action="{% url 'PDF_QNA:qna' %}" method="POST" novalidate>
         {% csrf_token %}
         {{ form }}
         <button type="submit">Submit</button>
     </form>
-
     {{ response }}
 </body>
 </html>

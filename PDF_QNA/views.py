@@ -38,16 +38,18 @@ def load_pipeline():
 
 def pdf(request):
     form = Qform()
-    return render(request, "pdf.html", context={"form" : form})
+    return render(request, "pdf.html", context={"form" : form, "uploaded" : False})
 
 def upload_pdf(request):
     if request.method == 'POST':
         form = Qform(request.POST)
+        request.session['uploaded'] = False
         if 'pdf_file' in request.FILES :
             f = request.FILES['pdf_file']
             with open("temp.pdf", "wb+") as destination:
                 for chunk in f.chunks():
                     destination.write(chunk)
+            request.session['uploaded'] = True
             data = PyPDFLoader('temp.pdf')
             pdf = data.load()
 
@@ -69,11 +71,24 @@ def upload_pdf(request):
             docsearch = MongoDBAtlasVectorSearch.from_documents(
                 docs, gpt4all_embd, collection=collection, index_name = "vector_index"
             )
-    return render(request, "pdf.html", context={"form" : form})
+            context = {
+                "form" : form, 
+                "uploaded" : request.session['uploaded'],
+                "file_name" :  f._get_name(),
+                "file_size" : f.size('temp.pdf')
+                }
+        else : 
+             context = {
+                "form" : form,
+                "uploaded" : request.session['uploaded']
+                }
+    return render(request, "pdf.html", context=context)
 
 
 def qna(request):
     form = Qform(request.POST)
+    if not request.session['uploaded'] :
+        return render(request, 'pdf.html',  context={"noupload_msg" : "Please upload a PDF", "form" : form})
     if form.is_valid():
         pipeline = load_pipeline()
         query = form.cleaned_data['text_input']
