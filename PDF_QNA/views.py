@@ -50,6 +50,8 @@ def upload_pdf(request):
                 for chunk in f.chunks():
                     destination.write(chunk)
             request.session['uploaded'] = True
+            request.session['file_name'] = f._get_name()
+            request.session['file_size'] = f.size
             data = PyPDFLoader('temp.pdf')
             pdf = data.load()
 
@@ -74,8 +76,8 @@ def upload_pdf(request):
             context = {
                 "form" : form, 
                 "uploaded" : request.session['uploaded'],
-                "file_name" :  f._get_name(),
-                "file_size" : f.size('temp.pdf')
+                "file_name" :  request.session['file_name'],
+                "file_size" :request.session['file_size']
                 }
         else : 
              context = {
@@ -87,7 +89,7 @@ def upload_pdf(request):
 
 def qna(request):
     form = Qform(request.POST)
-    if not request.session['uploaded'] :
+    if request.session.get('uploaded' , False):
         return render(request, 'pdf.html',  context={"noupload_msg" : "Please upload a PDF", "form" : form})
     if form.is_valid():
         pipeline = load_pipeline()
@@ -110,8 +112,8 @@ def qna(request):
             context += result[0].page_content
 
 
-        system_message = 'You are a helpful assistant. Give answers only if the information is present in the context, if information is not present answer with "Information is not present."'
-        prompt = f'<SYS> {system_message} <CONTEXT> {context} <INST> {query} <RESP> '
+        system_message = 'You are a helpful assistant. Give answers only if the information is provided in the context block, if information is not present answer with "Information is not present."'
+        prompt = f'<SYS> {system_message}. Here is some context : {context} .<INST> {query} <RESP> '
 
         response = pipeline(
         prompt, 
@@ -119,7 +121,22 @@ def qna(request):
         repetition_penalty=1.05
         )
         response = response[0]['generated_text'].split("<RESP>")[-1]
+
+        context = {
+                "form" : form, 
+                "uploaded" : request.session['uploaded'],
+                "file_name" :  request.session['file_name'],
+                "file_size" :request.session['file_size'],
+                "response" : response
+                }
     
-        return render(request, 'pdf.html', context={"response" : response, "form" : form})
+        return render(request, 'pdf.html', context= context)
+    context = {
+                "form" : form, 
+                "uploaded" : request.session['uploaded'],
+                "file_name" :  request.session['file_name'],
+                "file_size" :request.session['file_size'],
+                }
+    return render(request, 'pdf.html', context= context)
 
     
