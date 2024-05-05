@@ -1,0 +1,39 @@
+#back_button{
+    color: black;
+    background-color: rgb(118, 117, 117);
+}
+
+#display_pdf{
+    text-align: center;
+    border-top : solid;
+    border-bottom : solid;
+    border-radius: 5%;
+    margin : 2% 25% 2% 25%;
+    height : 200px; 
+}
+
+#pdfup{
+    text-align: center;
+}
+
+h1{
+    text-align: center;
+}
+
+body{
+    background-color: black;
+    color : white;
+}
+
+#pdf {
+    text-align: center;
+}
+
+#respblock{
+    border: 1px;
+    border-radius: 5%;
+    background-color: whitesmoke;
+    color: black;
+    margin: 5% 20% 5% 20%;
+    padding : 2%;
+}

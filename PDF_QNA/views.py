@@ -89,7 +89,7 @@ def upload_pdf(request):
 
 def qna(request):
     form = Qform(request.POST)
-    if request.session.get('uploaded' , False):
+    if not request.session.get('uploaded' , False):
         return render(request, 'pdf.html',  context={"noupload_msg" : "Please upload a PDF", "form" : form})
     if form.is_valid():
         pipeline = load_pipeline()
