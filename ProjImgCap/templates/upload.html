@@ -1,16 +1,16 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-    <form action="{% url 'portfolio:index' %}" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <button type="submit">Back</button>
-    </form>
     <head>
         <link rel="stylesheet" href="{% static 'css/styles1.css' %}">
         <script src="{% static 'javascript/SimpleImage.js' %}"></script>
         <script src="{% static 'javascript/scp.js' %}"></script>  
     </head>
     <body>
+        <form action="{% url 'portfolio:index' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <button id = "back_button" type="submit">Back</button>
+        </form>
         <h1>Image Caption Generator</h1>
         <div id="top">
             <div id="canvas">
