@@ -8,7 +8,7 @@
     border-top : solid;
     border-bottom : solid;
     border-radius: 5%;
-    margin : 2% 25% 2% 25%;
+    margin : 0% 25% 2% 25%;
     height : 200px; 
 }
 
@@ -36,4 +36,19 @@ body{
     color: black;
     margin: 5% 20% 5% 20%;
     padding : 2%;
+}
+
+#reupload{
+    margin : 0% 20% 0% 70%;
+}
+
+#crs_icon{
+    height: 15px;
+    background-blend-mode: lighten;
+}
+
+#crs_icon_op{
+    height: 15px;
+    background-blend-mode: lighten;
+    opacity: 0.4;
 }

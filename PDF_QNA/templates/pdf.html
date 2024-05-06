@@ -16,6 +16,14 @@
     {% if noupload_msg %}
     <div>{{ noupload_msg }}</div>
     {% endif %}
+    <form id= 'reupload' action="{% url 'PDF_QNA:upload_pdf' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if not uploaded %}
+        <button type="submit" disabled><img id='crs_icon_op' src="{% static 'download.png' %}  " alt=""></button>
+        {% else %}
+        <button type="submit"><img id='crs_icon' src="{% static 'download.png' %}  " alt=""></button>
+        {% endif %}
+    </form>
     <div id ='display_pdf'>
         <div> {{ file_name }} {{ file_size }}</div>
     </div>
@@ -29,10 +37,7 @@
             <button type="submit">Upload PDF</button>
             {% endif %}
         </form>
-        <form action="{% url 'PDF_QNA:upload_pdf' %}" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <button type="submit">Upload another PDF</button>
-        </form>
+        
         <form action="{% url 'PDF_QNA:qna' %}" method="POST" novalidate>
             {% csrf_token %}
             {{ form }}

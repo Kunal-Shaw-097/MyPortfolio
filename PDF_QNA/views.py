@@ -84,7 +84,7 @@ def upload_pdf(request):
                 "form" : form,
                 "uploaded" : request.session['uploaded']
                 }
-    return render(request, "pdf.html", context=context)
+        return render(request, "pdf.html", context=context)
 
 
 def qna(request):
