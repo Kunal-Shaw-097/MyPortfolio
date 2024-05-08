@@ -1,45 +1,36 @@
-#back_button{
-    color: black;
-    background-color: rgb(118, 117, 117);
+#back_button_form{
+    text-align: left;
 }
 
-#display_pdf{
+#pdf_disp_block{
     text-align: center;
     border-top : solid;
     border-bottom : solid;
     border-radius: 5%;
-    margin : 0% 25% 2% 25%;
+    margin : 0% 35% 2% 35%;
     height : 200px; 
 }
 
-#pdfup{
-    text-align: center;
-}
-
-h1{
-    text-align: center;
-}
-
-body{
-    background-color: black;
-    color : white;
-}
-
-#pdf {
-    text-align: center;
-}
-
-#respblock{
+#resp_block{
     border: 1px;
     border-radius: 5%;
     background-color: whitesmoke;
     color: black;
-    margin: 5% 20% 5% 20%;
+    margin: 1% 20% 5% 20%;
     padding : 2%;
 }
 
-#reupload{
-    margin : 0% 20% 0% 70%;
+body{
+    text-align: center;
+    background-color: black;
+    color : white;
+}
+
+
+#back_button_icon{
+    color: black;
+    background-color: rgb(255, 255, 255);
+    
 }
 
 #crs_icon{
@@ -52,3 +43,35 @@ body{
     background-blend-mode: lighten;
     opacity: 0.4;
 }
+
+#reupload{
+    margin : 0% 0% 0% 30%;
+}
+
+.errorlist{
+    list-style-type: none;
+}
+
+#question{
+    margin : 5% 0% 5% 0;
+}
+
+#question button{
+    margin : 1%
+}
+
+#pdf_icon{
+    margin : 5% 0% 5% 0%;
+    height: 50%;
+}
+
+#txt{
+    text-align: left; 
+    margin : 0% 0% 0% 20%;
+}
+
+#id_text_input{
+    width: 50%;
+}
+
+

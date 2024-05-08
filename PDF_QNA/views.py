@@ -42,7 +42,7 @@ def pdf(request):
 
 def upload_pdf(request):
     if request.method == 'POST':
-        form = Qform(request.POST)
+        form = Qform()
         request.session['uploaded'] = False
         if 'pdf_file' in request.FILES :
             f = request.FILES['pdf_file']
@@ -85,8 +85,7 @@ def upload_pdf(request):
                 "uploaded" : request.session['uploaded']
                 }
         return render(request, "pdf.html", context=context)
-
-
+    
 def qna(request):
     form = Qform(request.POST)
     if not request.session.get('uploaded' , False):
