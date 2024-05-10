@@ -7,13 +7,19 @@
         <script src="{% static 'javascript/scp.js' %}"></script>  
     </head>
     <body>
-        <form action="{% url 'portfolio:index' %}" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <button id = "back_button" type="submit">Back</button>
-        </form>
+        <div id="tops">
+            <form  id = 'back_button_form' action="{% url 'portfolio:index' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <button id = 'back_button_icon' type="submit">Back</button>
+            </form>
+            <a href="https://github.com/Kunal-Shaw-097/Image-captioning" target="_blank"><img id='github_icon' src="{% static 'github.png' %}  " alt=""></a>
+        </div>
         <h1>Image Caption Generator</h1>
         <div id="top">
             <div id="canvas">
+                {% if uploaded %}
+                <img id='temp' src="{% static 'temp.png' %}">
+                {% endif %}
                 <canvas id="canv1"></canvas>
             </div>
             <form method="POST" enctype="multipart/form-data" action="{% url 'ProjImgCap:GenerateCaption' %}">

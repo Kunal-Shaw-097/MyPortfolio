@@ -58,3 +58,19 @@ div{
     background-color: rgb(118, 117, 117);
     text-align: left;
 }
+
+#github_icon{
+    height: 36px;
+}
+
+#tops{
+    display: flex;
+    justify-content: space-between;
+}
+
+#temp{
+    margin : 5% 0 1% 0;
+    max-height: 540px;
+    max-width: 540px;
+}
+

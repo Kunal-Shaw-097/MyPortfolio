@@ -30,18 +30,21 @@ def Image_caption(request):
 def Generate_caption(request):
     model, tokenizer, device = get_all()
     model.eval()
-    if request.method == 'POST' and request.FILES['image']:
+    if request.method == 'POST' and request.FILES.get('image', False):
         # Get the uploaded image
         image = request.FILES['image']
-
         # Read the image contents into memory
         file_bytes = np.frombuffer(image.read(), np.uint8)
         img = cv2.imdecode(file_bytes,  cv2.IMREAD_COLOR)
+        cv2.imwrite('ProjImgCap/static/temp.png', img)
+        uploaded = True
         img = letterbox(img, (480,480))
         img_in = torch.from_numpy(img).to(device).unsqueeze(0).permute(0, 3, 1, 2).contiguous().float()/255
         pred = model.generate(img_in, tokenizer, device=device, greedy= True, top_k=5)
         caption = tokenizer.decode(pred)
         context = {
             "caption" : caption[0],
+            "uploaded" : uploaded
         }
-    return render(request, "upload.html", context)
+        return render(request, "upload.html", context)
+    return render(request, "upload.html")
