@@ -10,18 +10,6 @@ body {
     background: #333;
     color: #fff;
     padding: 10px 0;
-    text-align: center;
-}
-.navigation {
-    background: #444;
-    color: white;
-    padding: 10px 0;
-    text-align: center;
-}
-.navigation a {
-    color: white;
-    padding: 10px;
-    text-decoration: none;
 }
 .content {
     padding: 20px;
@@ -34,11 +22,15 @@ body {
 }
 
 #home, #about, #projects, #contact{
-    text-align: center;
     list-style-position: inside
 }
 
 #projectlist{
     display: inline-block;
     text-align: left;
+}
+
+.contact_icon{
+    height: 36px;
+    width: 46px;
 }

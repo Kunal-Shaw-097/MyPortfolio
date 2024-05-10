@@ -3,37 +3,54 @@
 <html>
 <head>
     <title>My Portfolio</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="shortcut icon" href="{%  static 'favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">1
 </head>
 <body>
     
     <div class="header">
-        <h1>My Portfolio</h1>
+        <h1>Kunal Shaw</h1>
+        <p>AI enthusiast</p>
+        <a target="_blank" href="https://www.linkedin.com/in/kunal-shaw-6711b1226/"><img  class='contact_icon' src="{% static 'linkedIn.png' %} "></a>
+        <a target="_blank" href="https://github.com/Kunal-Shaw-097"><img class='contact_icon' src="{% static 'github.png' %} "></a>
     </div>
+
     
-    <div class="navigation">
-        <!-- Navigation Links -->
-        <a href="#home">Home</a> |
+    <!-- <div class="navigation">
+        <a href="#Skills">Home</a> |
         <a href="#about">About</a> |
         <a href="#projects">Projects</a> |
-        <a href="#contact">Contact</a>
-    </div>
-
+    </div> -->
     <div class="content">
-        <!-- Home Section -->
-        <section id="home">
-            <h2>Welcome to My Portfolio</h2>
-            <p>Hello, I am a passionate AI enthusiast.</p>
-        </section>
 
-        <!-- About Section -->
         <section id="about">
             <h2>About Me</h2>
-            <p>I am a second year student at Manipal University Jaipur, I am currently enrolled in a distance learning (online) Bachelor's of Computer Applications program.
-            </p>
+            <p>I am a second year student at Manipal University Jaipur, I am currently enrolled in a distance learning (online) Bachelor's of Computer Applications program.</p>
         </section>
 
-        <!-- Projects Section -->
+        <section id="Skills">
+            <h2>Skills</h2>
+            <p>Languages</p>
+                <ul>
+                <li>Python - Advanced
+                    <ul>
+                        <li>PyTorch</li>
+                        <li>Tensorflow</li>
+                        <li>OpenCV</li>
+                        <li>Numpy</li>
+                        <li>HuggingFace Transformers</li>
+                        <li>Django</li>
+                    </ul>
+                </li>
+                <li>C++ - Basic</li>
+                </ul>  
+            <p>Databases</p> 
+            <ul>
+                <li>MongoDB</li>
+                <li>SQLite</li>
+            </ul>
+        </section>
+
         <section id="projects">
             <h2>Projects</h2>
             <p>Some of my Personal Projects -</p>
@@ -46,11 +63,6 @@
             </ul>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact">
-            <h2>Contact Me</h2>
-            <p>Details on how to contact you - email, phone, social media links, etc.</p>
-        </section>
     </div>
 
     <div class="footer">
