@@ -1,73 +1,91 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-<head>
-    <title>My Portfolio</title>
-    <link rel="shortcut icon" href="{%  static 'favicon.ico' %}">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">1
-</head>
-<body>
-    
-    <div class="header">
-        <h1>Kunal Shaw</h1>
-        <p>AI enthusiast</p>
-        <a target="_blank" href="https://www.linkedin.com/in/kunal-shaw-6711b1226/"><img  class='contact_icon' src="{% static 'linkedIn.png' %} "></a>
-        <a target="_blank" href="https://github.com/Kunal-Shaw-097"><img class='contact_icon' src="{% static 'github.png' %} "></a>
-    </div>
-
-    
-    <!-- <div class="navigation">
-        <a href="#Skills">Home</a> |
-        <a href="#about">About</a> |
-        <a href="#projects">Projects</a> |
-    </div> -->
-    <div class="content">
-
-        <section id="about">
-            <h2>About Me</h2>
-            <p>I am a second year student at Manipal University Jaipur, I am currently enrolled in a distance learning (online) Bachelor's of Computer Applications program.</p>
-        </section>
-
-        <section id="Skills">
-            <h2>Skills</h2>
-            <p>Languages</p>
-                <ul>
-                <li>Python - Advanced
-                    <ul>
-                        <li>PyTorch</li>
-                        <li>Tensorflow</li>
-                        <li>OpenCV</li>
-                        <li>Numpy</li>
-                        <li>HuggingFace Transformers</li>
-                        <li>Django</li>
-                    </ul>
-                </li>
-                <li>C++ - Basic</li>
-                </ul>  
-            <p>Databases</p> 
-            <ul>
-                <li>MongoDB</li>
-                <li>SQLite</li>
-            </ul>
-        </section>
-
-        <section id="projects">
-            <h2>Projects</h2>
-            <p>Some of my Personal Projects -</p>
-            <ul id="projectlist">
-                <li><a href="/ImgCap">Image Captioning :</a> <p> I created a Image captioning model from scratch using PyTorch, implemented a custom text tokenizer without using any external libraries.
-                    Collected Image captioning dataset from various online sources, also did some data annotation myself.
-                </p></li>
-                <li><a href="/PdfQA">PDF Q&A :</a> <p> Input a pdf and ask question about anything inside it. The projects demonstrate Retrieval Augmented Generation with the help of a 1.1B llm model and MongoDB atlas's VectorDB.
-                </p></li>
-            </ul>
-        </section>
-
-    </div>
-
-    <div class="footer">
-        <p>Copyright &copy; 2024 Kunal Shaw</p>
-    </div>
-
-</body>
-</html>
+    <head>
+        <title>Kunal-Portfolio</title>
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+        <link rel="shortcut icon" href="{%  static 'favicon.ico' %}">
+    </head>
+    <body>
+        <div class="header">
+            <h1>Kunal Shaw</h1>
+            <p>AI enthusiast</p>
+            <p>decodednature097@gmail.com</p> 
+            <a target="_blank" href="https://www.linkedin.com/in/kunal-shaw-6711b1226/"><img  class='contact_icon' src="{% static 'linkedIn.png' %} "></a>
+            <a target="_blank" href="https://github.com/Kunal-Shaw-097"><img class='contact_icon' src="{% static 'github.png' %} "></a>
+        </div>
+        <div class="content">
+            <section class="sect">
+                <h2>About Me :</h2>
+                <p>I am a second year student at Manipal University Jaipur, I am currently enrolled in a distance learning (online) Bachelor's of Computer Applications program.</p>
+            </section>
+            <section class="sect">
+                <h2>Experience :</h2>
+                <ol>
+                    <li>
+                        <p><b>Title - </b>Machine Learning Intern</p>
+                        <p><b>Company -</b><a href="https://www.linkedin.com/company/cube-highways/">Cube Highways</a></p>
+                        <p>Oct 2022 - April 2023 for 6 months</p>
+                        <p>I had the valuable opportunity to work on a diverse variety of tasks during this internship. My primary role included preparing datasets and then training computer vision models on them for detecting companies assests and tracking them, as well detecting PPE's.</p>
+                        <p>I also worked on creating efficient inference pipelines to ensure seamless integration of these models into operational workflows.</p>
+                        <p>This experience has given me a deep understanding of the end-to-end process, from dataset preparation to model training and deployment. I have also developed proficiency in many deep learning frameworks and honed my skills in creating efficient inference pipelines.</p>
+                    </li>
+                </ol>
+            </section>
+            <section class="sect">
+                <h2>Skills :</h2>
+                <p><b>Languages</b></p>
+                    <ul class="ul_list">
+                    <li>Python - Advanced
+                        <ul>
+                            <li>PyTorch</li>
+                            <li>Tensorflow</li>
+                            <li>OpenCV</li>
+                            <li>Numpy</li>
+                            <li>HuggingFace Transformers</li>
+                            <li>LangChain</li>
+                            <li>Django</li>
+                            <li>Flask</li>
+                        </ul>
+                    </li>
+                    <li>C++ - Basic</li>
+                    </ul>  
+                <p><b>Databases</b></p> 
+                <ul class="ul_list">
+                    <li>MongoDB</li>
+                    <li>SQLite</li>
+                </ul>
+            </section>
+            <section class="sect">
+                <h2>Projects :</h2>
+                <p>Some of my Personal Projects -</p>
+                <ul id="projectlist">
+                    <li>
+                        <a href="/ImgCap">Image Captioning :</a> 
+                        <p> Created and trained an Image captioning model from scratch using PyTorch.</p>
+                        <ul>
+                            <li>Uses a custom text tokenizer built from scratch using basic python and regex</li>
+                            <li>Vocabulary created from training dataset.</li>
+                            <li>Datasets 
+                                <ul>
+                                    <li><a href="https://www.kaggle.com/datasets/hsankesara/flickr-image-dataset" target="_blank">Flicker30k</a></li>
+                                    <li><a href="https://cocodataset.org/#download" target="_blank">COCO captions</a></li>
+                                    <li><a href="https://huggingface.co/datasets/laion/laion-coco" target="_blank">Lian COCO</a></li>
+                                </ul>    
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="/PdfQA">PDF Q&A :</a> <p> Input a pdf and ask question about anything inside it. The projects demonstrate Retrieval Augmented Generation with the help of a 1.1B llm model and MongoDB atlas's VectorDB.
+                    </p></li>
+                    <li>
+                        <a href="https://github.com/Kunal-Shaw-097/MyPortfolio", target="_blank">Portfolio Website using Django</a>
+                        <p>You are looking at it !</p>
+                    </li>
+                </ul>
+            </section>
+        </div>
+        <div class="footer">
+            <p>Copyright &copy; 2024 Kunal Shaw</p>
+        </div>
+    </body>
+</html> 

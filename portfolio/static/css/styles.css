@@ -1,15 +1,14 @@
-/* Add your CSS styling here */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    color: white;
-    background-color: #6b6969;
+    background-color: black;
 }
 .header {
-    background: #333;
-    color: #fff;
+    background: #666666;
+    color: #000000;
     padding: 10px 0;
+    text-align: center;
 }
 .content {
     padding: 20px;
@@ -33,4 +32,36 @@ body {
 .contact_icon{
     height: 36px;
     width: 46px;
+    margin: 1% 0% 1% 0%;
+    border: solid black;
+}
+
+a:link{
+    color:rgba(0, 247, 255, 0.412);
+}
+a:visited{
+    color:rgba(0, 247, 255, 0.412);
+}
+a:hover{
+    color:rgba(0, 247, 255, 0.412);
+}
+
+h2{
+    font-style: italic;
+    border-bottom: solid black;
+}
+
+.ul_list{
+    list-style: '> ';
+}
+
+li{
+    margin: 1%;
+}
+
+.sect{
+    border: black solid;
+    margin : 1%;
+    padding: 1%;
+    background: #666666;
 }
