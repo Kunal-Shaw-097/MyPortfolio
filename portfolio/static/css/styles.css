@@ -3,12 +3,17 @@ body {
     margin: 0;
     padding: 0;
     background-color: black;
+    background-image: url("../image2.png");
+    background-blend-mode: lighten;
+    color: whitesmoke;
 }
 .header {
-    background: #666666;
+    /* background: #666666; */
     color: #000000;
     padding: 10px 0;
     text-align: center;
+    background-color: #666666;
+    background-image: url("../image1.jpg");
 }
 .content {
     padding: 20px;
@@ -37,13 +42,13 @@ body {
 }
 
 a:link{
-    color:rgba(0, 247, 255, 0.412);
+    color:rgb(68, 0, 255);
 }
 a:visited{
-    color:rgba(0, 247, 255, 0.412);
+    color:rgb(68, 0, 255);
 }
 a:hover{
-    color:rgba(0, 247, 255, 0.412);
+    color:rgb(68, 0, 255);
 }
 
 h2{

@@ -23,7 +23,7 @@
 body{
     text-align: center;
     background: rgb(0,0,0);
-    background: linear-gradient(90deg, rgba(0,0,0,1) 22%, rgba(16,16,16,1) 51%, rgba(19,19,19,1) 57%, rgba(51,51,51,1) 86%);
+    background: linear-gradient(to bottom, #000000, #0e0c0b, #171413, #1d1b18, #22231e);
     color : white;
     font-size: 22px;
 }
