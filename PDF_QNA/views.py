@@ -11,29 +11,37 @@ from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from langchain_community.document_loaders import PyPDFLoader
 
-from transformers import AutoTokenizer
-import transformers
-import torch
+from openai import OpenAI
 
-model_id = 'ericzzz/falcon-rw-1b-instruct-openorca'
+#rom transformers import AutoTokenizer
+#import transformers
+#import torch
 
-def load_pipeline():
+#model_id = 'ericzzz/falcon-rw-1b-instruct-openorca'
 
-    pipeline  = cache.get('pipeline')
-    torch.cuda.empty_cache()
-    if not pipeline :
-        device, dtype = ('cuda', torch.bfloat16) if torch.cuda.is_available() else ('cpu',torch.float16) 
-        tokenizer = AutoTokenizer.from_pretrained(model_id)
-        pipeline = transformers.pipeline(
-            'text-generation',
-            model=model_id,
-            tokenizer=tokenizer,
-            torch_dtype=dtype,
-            device_map=device,
-            )
-        cache.set('pipeline', pipeline, None)  
+# def load_pipeline():
 
-    return pipeline
+#     pipeline  = cache.get('pipeline')
+#     torch.cuda.empty_cache()
+#     if not pipeline :
+#         device, dtype = ('cuda', torch.bfloat16) if torch.cuda.is_available() else ('cpu',torch.float16) 
+#         tokenizer = AutoTokenizer.from_pretrained(model_id)
+#         pipeline = transformers.pipeline(
+#             'text-generation',
+#             model=model_id,
+#             tokenizer=tokenizer,
+#             torch_dtype=dtype,
+#             device_map=device,
+#             )
+#         cache.set('pipeline', pipeline, None)  
+
+#     return pipeline
+
+
+def get_client() :
+    client = OpenAI(api_key=keys['OpenAI_key'])
+    return client
+
 
 
 def pdf(request):
@@ -91,7 +99,8 @@ def qna(request):
     if not request.session.get('uploaded' , False):
         return render(request, 'pdf.html',  context={"noupload_msg" : "Please upload a PDF", "form" : form})
     if form.is_valid():
-        pipeline = load_pipeline()
+        #pipeline = load_pipeline()
+        
         query = form.cleaned_data['text_input']
 
         vector_search = MongoDBAtlasVectorSearch.from_connection_string(
@@ -114,12 +123,29 @@ def qna(request):
         system_message = 'You are a helpful assistant. Give answers only if the information is provided in the context block, if information is not present answer with "Information is not present."'
         prompt = f'<SYS> {system_message}. Here is some context : {context} .<INST> {query} <RESP> '
 
-        response = pipeline(
-        prompt, 
-        max_length=1024,
-        repetition_penalty=1.05
-        )
-        response = response[0]['generated_text'].split("<RESP>")[-1]
+        # response = pipeline(
+        # prompt, 
+        # max_length=1024,
+        # repetition_penalty=1.05
+        # )
+        # response = response[0]['generated_text'].split("<RESP>")[-1]
+        
+        client = get_client()
+        message = {
+        'role': 'user',
+        'content': prompt
+        }
+        response = client.chat.completions.create(
+                model="gpt-3.5-turbo-16k-0613",
+                messages=[message],
+                temperature=1,
+                max_tokens=256,
+                top_p=1,
+                frequency_penalty=0,
+                presence_penalty=0,
+                )
+
+        response = response.choices[0].message.content
 
         context = {
                 "form" : form, 
