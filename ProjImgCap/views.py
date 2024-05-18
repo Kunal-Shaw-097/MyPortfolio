@@ -8,6 +8,9 @@ import torch
 import numpy as np
 import cv2
 
+from pathlib import Path
+import gdown
+
 def get_all():
     model = cache.get('model')  
     tokenizer = cache.get('tokenizer')
@@ -15,6 +18,8 @@ def get_all():
 
     if not model:
         device = 'cuda' if torch.cuda.is_available() else 'cpu' 
+        if Path("ProjImgCap/saved_model/best.pt").exists() == False :
+            gdown.download(id='1sc1l1AWDHsKsV_N9OpQcnjGfgwSwdggA', output='ProjImgCap/saved_model/best.pt')
         tokenizer = Tokenizer("ProjImgCap/saved_model/vocab.json")                    
         model = resume_checkpoint("ProjImgCap/saved_model/best.pt", tokenizer= tokenizer, resume_weight_only= True, device= device)
         cache.set('model', model, None)  
