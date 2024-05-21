@@ -1,0 +1,90 @@
+#back_button_form{
+    text-align: left;
+}
+
+#pdf_disp_block{
+    text-align: center;
+    border-top : solid;
+    border-bottom : solid;
+    border-radius: 5%;
+    margin : 0% 35% 2% 35%;
+    height : 200px; 
+}
+
+#resp_block{
+    border: 1px;
+    border-radius: 5%;
+    background-color: gray;
+    color: black;
+    margin: 1% 20% 5% 20%;
+    padding : 2%;
+}
+
+body{
+    text-align: center;
+    background: rgb(0,0,0);
+    background: linear-gradient(to bottom, #000000, #0e0c0b, #171413, #1d1b18, #22231e);
+    color : white;
+    font-size: 22px;
+}
+
+#back_button_icon{
+    color: black;
+    background-color: rgb(255, 255, 255);
+    
+}
+
+#crs_icon{
+    height: 15px;
+    background-blend-mode: lighten;
+}
+
+#crs_icon_op{
+    height: 15px;
+    background-blend-mode: lighten;
+    opacity: 0.4;
+}
+
+#reupload{
+    margin : 0% 0% 0% 30%;
+}
+
+.errorlist{
+    list-style-type: none;
+}
+
+#question{
+    margin : 5% 0% 5% 0;
+}
+
+#question button{
+    margin : 1%
+}
+
+#pdf_icon{
+    margin : 5% 0% 5% 0%;
+    height: 50%;
+}
+
+#txt{
+    text-align: left; 
+    margin : 0% 0% 0% 20%;
+}
+
+#id_text_input{
+    width: 50%;
+    background-color: gray;
+    border-radius: 5%;
+    height:30px;
+}
+
+#github_icon{
+    height: 36px;
+}
+
+#top{
+    display: flex;
+    justify-content: space-between;
+}
+
+

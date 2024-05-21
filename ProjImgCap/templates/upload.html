@@ -18,7 +18,7 @@
         <div id="top">
             <div id="canvas">
                 {% if uploaded %}
-                <img id='temp' src="{% static 'temp.png' %}">
+                <img id='temp' src="/static/temp{{id}}_uploaded.png">
                 {% endif %}
                 <canvas id="canv1"></canvas>
             </div>
