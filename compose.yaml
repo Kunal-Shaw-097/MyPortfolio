@@ -7,11 +7,15 @@ services:
       - ./media:/app/media/
     ports:
       - "8000:8000"
+    networks:
+    - app-network
   
   streamlit_website:
     image: pravesh1800/portfolio:latest
     ports:
       - "8501:8501"
+    networks:
+    - app-network
       
   nginx:
     image: nginx
@@ -32,7 +36,9 @@ services:
     depends_on:
       - django_website
       - streamlit_website
-    
+
+networks:
+  app-network:
   
 
   
