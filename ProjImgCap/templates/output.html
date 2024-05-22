@@ -29,7 +29,7 @@
             const imageId = "{{ image_id }}";
             const csrfToken = "{{ csrf_token }}";
             if (imageId) {
-                fetch("http://127.0.0.1:8000/ImgCap/delete_image/", {
+                fetch("http://0.0.0.0:8000/ImgCap/delete_image/", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
