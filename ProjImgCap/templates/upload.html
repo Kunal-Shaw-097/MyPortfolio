@@ -17,10 +17,10 @@
         <h1>Image Caption Generator</h1>
         <div id="top">
             <div id="canvas">
-                {% if uploaded %}
-                <img id='temp' src="{% static 'temp.png' %}">
-                {% endif %}
-                <canvas id="canv1"></canvas>
+               {% block canvas %}
+               
+               {% endblock canvas %}
+               <canvas id="canv1"></canvas>
             </div>
             <form method="POST" enctype="multipart/form-data" action="{% url 'ProjImgCap:GenerateCaption' %}">
                 {% csrf_token %}
@@ -29,15 +29,11 @@
                 <input type="submit" value="Generate">
             </form>
         </div>
-        <div id="bottom">
-            <h2>Generated Caption :</h2>
-            <div id="txt_box">
-                {% if caption %}
-                {{caption}}
-                {% endif %}
-            </div>
-        </div>
+       {% block caption %} 
+       
+       {% endblock caption %}
     </body>
+    {% block script %}{% endblock script %}
 </html>
 
 
