@@ -7,11 +7,16 @@ from .utils.process_image import letterbox
 import torch
 import numpy as np
 import cv2
-import uuid
-import os
 
 from pathlib import Path
 import gdown
+
+from .models import imageUpload
+import uuid
+import os
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 def get_all():
     model = cache.get('model')  
@@ -32,36 +37,65 @@ def get_all():
 
 # Create your views here.
 def Image_caption(request):
-    if not request.session.get('session_id', False) :
-        request.session['session_id'] = str(uuid.uuid4())
-        images  = os.listdir('staticfiles/') 
-        for img in images:
-            if img.split('.')[0].endswith('_uploaded'):
-                os.remove(os.path.join('staticfiles/', img))
     return render(request, "upload.html")
 
 def Generate_caption(request):
     model, tokenizer, device = get_all()
     model.eval()
     if request.method == 'POST' and request.FILES.get('image', False):
-        # Get the uploaded image
-        image = request.FILES['image']
-        # Read the image contents into memory
-        file_bytes = np.frombuffer(image.read(), np.uint8)
-        img = cv2.imdecode(file_bytes,  cv2.IMREAD_COLOR)
-        id = request.session['session_id']
-        save_path = f'staticfiles/temp{id}_uploaded.png'
-        uploaded = True
-        img = letterbox(img, (480,480)) 
-        img_in = torch.from_numpy(img).to(device).unsqueeze(0).permute(0, 3, 1, 2).contiguous().float()/255
-        pred = model.generate(img_in, tokenizer, device=device, greedy= True, top_k=5)
-        caption = tokenizer.decode(pred)
-        cv2.imwrite(save_path, img)
-        context = {
-            "caption" : caption[0],
-            "uploaded" : uploaded,
-            "path " : f'/static/temp{id}.png',
-            "id" : id
-        }
-        return render(request, "upload.html", context)
+        try:
+            # Get the uploaded image
+            img_unique_id = uuid.uuid4()
+            image = request.FILES['image']
+            
+            # Save the image to a model instance
+            my_model_instance = imageUpload(id=img_unique_id, image=image)
+            my_model_instance.save()
+            # Read the image contents into memory
+            image.seek(0)  # Ensure you're reading from the start of the file
+            file_bytes = np.frombuffer(image.read(), np.uint8)
+            img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+            img = letterbox(img, (480, 480))
+            img_in = torch.from_numpy(img).to(device).unsqueeze(0).permute(0, 3, 1, 2).contiguous().float() / 255
+            pred = model.generate(img_in, tokenizer, device=device, greedy=True, top_k=5)
+            caption = tokenizer.decode(pred)
+            # Retrieve the image from db
+            image_instance = imageUpload.objects.filter(id=img_unique_id).first()
+            # Get the image URL
+            image_url = image_instance.image.url
+            context = {
+                "caption": caption[0],
+                "image_url": image_url,
+                "image_id": str(img_unique_id)
+            }
+            return render(request, "output.html", context)
+        except Exception as e:
+            context = {
+                "error": str(e),
+                "image": None,
+            }
+            return render(request, "output.html", context)
+
     return render(request, "upload.html")
+
+@csrf_exempt
+def delete_image(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            image_id = data.get('image_id')
+            image_instance = imageUpload.objects.filter(id=image_id).first()
+            if image_instance:
+                # Delete the image file from db
+                image_path = image_instance.image.path
+                if os.path.exists(image_path):
+                    os.remove(image_path)
+                
+                # Delete the image instance from the database
+                image_instance.delete()
+                return JsonResponse({"message": "Image  sucesfully deleted"})
+            else:
+                return JsonResponse({"message": "Image found"}, status=404)
+        except Exception as e:
+            return JsonResponse({"message": str(e)}, status=500)
+    return JsonResponse({"message": "Invalid request"}, status=400)

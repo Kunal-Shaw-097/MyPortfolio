@@ -1,0 +1,52 @@
+{% extends "upload.html" %}
+
+{% block canvas %}
+{% if image_url %}
+<img id='temp' src="{{ image_url }}">
+<!-- <input type='text' value={{image_id}}> -->
+{% endif %}
+{% if error %}
+        <p>Error: {{ error }}</p>
+    {% endif %}
+{% endblock canvas %}
+
+{% block caption %}
+<div id="bottom">
+    <h2>Generated Caption :</h2>
+    <div id="txt_box">
+        {% if caption %}
+        {{caption}}
+        {% endif %}
+    </div>
+</div>
+{% endblock caption %}
+
+{% block script %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Delay execution by 3 seconds
+        setTimeout(function() {
+            const imageId = "{{ image_id }}";
+            const csrfToken = "{{ csrf_token }}";
+            if (imageId) {
+                fetch("http://127.0.0.1:8000/ImgCap/delete_image/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": csrfToken
+                    },
+                    body: JSON.stringify({ image_id: imageId })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok " + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => console.log(data.message))
+                .catch(error => console.error("Error deleting image:", error));
+            }
+        }, 3000);  // 3000 milliseconds = 3 seconds
+    });
+</script>
+{% endblock script %}

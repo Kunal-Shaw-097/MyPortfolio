@@ -62,3 +62,5 @@ yarl==1.9.4
 --extra-index-url https://download.pytorch.org/whl/cpu
 torch==2.0.1
 gdown==5.2.0
+Pillow==10.3.0
+django-cors-headers==4.3.1
