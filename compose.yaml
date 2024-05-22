@@ -36,6 +36,8 @@ services:
     depends_on:
       - django_website
       - streamlit_website
+    networks:
+    - app-network
 
 networks:
   app-network:
