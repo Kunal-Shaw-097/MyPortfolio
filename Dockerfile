@@ -24,4 +24,4 @@ RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
 EXPOSE 8000
 
 #Run the app
-CMD python manage.py runserver 0.0.0.0:8000
+CMD python manage.py runserver 
