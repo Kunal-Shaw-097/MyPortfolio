@@ -5,13 +5,14 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./media:/app/media/
+      - ./MyPortfolio/settings.py:/app/MyPortfolio/settings.py
     ports:
       - "8000:8000"
     networks:
     - app-network
   
   streamlit_website:
-    image: pravesh1800/portfolio:latest
+    image: pravesh1800/myportfolio:latest
     ports:
       - "8501:8501"
     networks:
