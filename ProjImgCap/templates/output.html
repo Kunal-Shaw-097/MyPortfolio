@@ -28,8 +28,11 @@
         setTimeout(function() {
             const imageId = "{{ image_id }}";
             const csrfToken = "{{ csrf_token }}";
+            const currentOrigin = window.location.origin;
+            // Use the current origin to construct the URL
+            const url = `${currentOrigin}/ImgCap/delete_image/`;
             if (imageId) {
-                fetch("http://0.0.0.0:8000/ImgCap/delete_image/", {
+                fetch(url, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
