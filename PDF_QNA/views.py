@@ -3,6 +3,7 @@ from django.core.cache import cache
 
 from PDF_QNA.forms import Qform
 from PDF_QNA.apis import keys
+from PDF_QNA.models import PdfUpload
 
 from langchain_community.vectorstores import MongoDBAtlasVectorSearch
 from langchain_community.embeddings import GPT4AllEmbeddings
@@ -12,6 +13,9 @@ from pymongo.server_api import ServerApi
 from langchain_community.document_loaders import PyPDFLoader
 
 from openai import OpenAI
+import uuid
+import os
+from datetime import datetime
 
 #rom transformers import AutoTokenizer
 #import transformers
@@ -53,20 +57,28 @@ def upload_pdf(request):
         form = Qform()
         request.session['uploaded'] = False
         if 'pdf_file' in request.FILES :
-            f = request.FILES['pdf_file']
-            with open("temp.pdf", "wb+") as destination:
-                for chunk in f.chunks():
-                    destination.write(chunk)
+            pdf_unique_id = str(uuid.uuid1())
+            time_now = datetime.utcnow()
+            request.session['id'] = pdf_unique_id
+            f = request.FILES['pdf_file']        
+            # Save the pdf to a model instance
+            my_model_instance = PdfUpload(id=pdf_unique_id, pdf=f)
+            my_model_instance.save()
+            f.seek(0)
             request.session['uploaded'] = True
             request.session['file_name'] = f._get_name()
             request.session['file_size'] = f.size
-            data = PyPDFLoader('temp.pdf')
+            data = PyPDFLoader(my_model_instance.pdf.path)
             pdf = data.load()
-
+            os.remove(my_model_instance.pdf.path)
             # Step 2: Transform (Split)
             text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=0, separators=[
                                                         "\n\n", "\n", "(?<=\. )", " "], length_function=len)
             docs = text_splitter.split_documents(pdf)
+
+            for i in docs :
+                i.metadata['unique_id'] = pdf_unique_id
+                i.metadata['createdAt'] = time_now
 
             gpt4all_embd = GPT4AllEmbeddings()
 
@@ -74,9 +86,9 @@ def upload_pdf(request):
             # Initialize MongoDB python client
             client = MongoClient(keys['MONGO_STR'], server_api=ServerApi('1'))
             collection = client['try']['vec']
-
+            collection.create_index("createdAt", expireAfterSeconds=10)
             # Reset w/out deleting the Search Index 
-            collection.delete_many({})
+           # collection.delete_many({})
 
             docsearch = MongoDBAtlasVectorSearch.from_documents(
                 docs, gpt4all_embd, collection=collection, index_name = "vector_index"
@@ -110,8 +122,12 @@ def qna(request):
             index_name="vector_index",
         )
 
+        pre_filter={
+            'unique_id' : request.session['id'],
+        }
+
         results = vector_search.similarity_search_with_score(
-            query=query, k=2
+            query=query, k=2,  pre_filter= pre_filter
         )
 
         context = ''
