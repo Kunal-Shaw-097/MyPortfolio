@@ -86,7 +86,10 @@ def upload_pdf(request):
             # Initialize MongoDB python client
             client = MongoClient(keys['MONGO_STR'], server_api=ServerApi('1'))
             collection = client['try']['vec']
-            collection.create_index("createdAt", expireAfterSeconds=10)
+            index_exists = any(index['key'] == {'createdAt': 1} for index in list(collection.list_indexes()))
+
+            if not index_exists :
+                collection.create_index("createdAt", expireAfterSeconds=1000)
             # Reset w/out deleting the Search Index 
            # collection.delete_many({})
 
@@ -114,6 +117,12 @@ def qna(request):
         #pipeline = load_pipeline()
         
         query = form.cleaned_data['text_input']
+
+        client = MongoClient(keys['MONGO_STR'], server_api=ServerApi('1'))
+        collection = client['try']['vec']
+
+        if len(list(collection.find({"unique_id" : request.session['id'] }))) == 0 : 
+            return render(request, 'pdf.html',  context={"noupload_msg" : "Please Re-Upload the PDF", "form" : form})
 
         vector_search = MongoDBAtlasVectorSearch.from_connection_string(
             keys['MONGO_STR'],
