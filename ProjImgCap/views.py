@@ -18,29 +18,35 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 
-def get_all():
-    model = cache.get('model')  
-    tokenizer = cache.get('tokenizer')
-    device = cache.get('device')                                            #try to get cached object if it exists
+device = 'cuda' if torch.cuda.is_available() else 'cpu' 
+if Path("ProjImgCap/saved_model/best.pt").exists() == False :
+    gdown.download(id='1sc1l1AWDHsKsV_N9OpQcnjGfgwSwdggA', output='ProjImgCap/saved_model/best.pt')
+tokenizer = Tokenizer("ProjImgCap/saved_model/vocab.json")                    
+model = resume_checkpoint("ProjImgCap/saved_model/best.pt", tokenizer= tokenizer, resume_weight_only= True, device= device)
 
-    if not model:
-        device = 'cuda' if torch.cuda.is_available() else 'cpu' 
-        if Path("ProjImgCap/saved_model/best.pt").exists() == False :
-            gdown.download(id='1sc1l1AWDHsKsV_N9OpQcnjGfgwSwdggA', output='ProjImgCap/saved_model/best.pt')
-        tokenizer = Tokenizer("ProjImgCap/saved_model/vocab.json")                    
-        model = resume_checkpoint("ProjImgCap/saved_model/best.pt", tokenizer= tokenizer, resume_weight_only= True, device= device)
-        cache.set('model', model, None)  
-        cache.set('tokenizer', tokenizer, None)                             #cache them all
-        cache.set('device', device, None)
 
-    return model, tokenizer, device
+# def get_all():
+#     model = cache.get('model')  
+#     tokenizer = cache.get('tokenizer')
+#     device = cache.get('device')                                            #try to get cached object if it exists
+
+#     if not model:
+#         device = 'cuda' if torch.cuda.is_available() else 'cpu' 
+#         if Path("ProjImgCap/saved_model/best.pt").exists() == False :
+#             gdown.download(id='1sc1l1AWDHsKsV_N9OpQcnjGfgwSwdggA', output='ProjImgCap/saved_model/best.pt')
+#         tokenizer = Tokenizer("ProjImgCap/saved_model/vocab.json")                    
+#         model = resume_checkpoint("ProjImgCap/saved_model/best.pt", tokenizer= tokenizer, resume_weight_only= True, device= device)
+#         cache.set('model', model, None)  
+#         cache.set('tokenizer', tokenizer, None)                             #cache them all
+#         cache.set('device', device, None)
+
+#     return model, tokenizer, device
 
 # Create your views here.
 def Image_caption(request):
     return render(request, "upload.html")
 
 def Generate_caption(request):
-    model, tokenizer, device = get_all()
     model.eval()
     if request.method == 'POST' and request.FILES.get('image', False):
         try:
