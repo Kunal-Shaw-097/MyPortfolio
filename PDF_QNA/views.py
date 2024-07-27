@@ -161,7 +161,7 @@ def qna(request):
         'content': prompt
         }
         response = client.chat.completions.create(
-                model="gpt-3.5-turbo-16k-0613",
+                model="gpt-4o-mini-2024-07-18",
                 messages=[message],
                 temperature=1,
                 max_tokens=256,
