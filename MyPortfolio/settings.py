@@ -40,11 +40,9 @@ INSTALLED_APPS = [
     'portfolio',
     'ProjImgCap',
     'PDF_QNA',
-    'corsheaders',
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,34 +51,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-
-if DEBUG:
-    CORS_ORIGIN_ALLOW_ALL = True
-else:
-    CORS_ORIGIN_ALLOW_ALL = False
-
-    CORS_ALLOWED_ORIGINS  = [
-        'http://localhost',
-        'http://127.0.0.1',
-    ]
-
-# Allow specific headers
-CORS_ALLOW_HEADERS = [
-    'content-type',
-    'authorization',
-    'x-csrftoken',
-]
-CORS_ALLOW_METHODS = [
-    'GET',
-    'POST',
-    'PUT',
-    'DELETE',
-    'OPTIONS',
-]
-
-# Allow credentials if needed
-CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'MyPortfolio.urls'
 
